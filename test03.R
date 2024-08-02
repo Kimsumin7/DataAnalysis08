@@ -1,0 +1,9 @@
+help(q)
+5<5
+5<=5
+5>=5
+5==5
+5!=5
+!TRUE
+TRUE | FALSE
+TRUE & FALSE
