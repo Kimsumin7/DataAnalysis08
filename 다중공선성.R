@@ -1,6 +1,8 @@
 # 필요한 패키지 설치 및 로드
 install.packages("corrplot")
+install.packages("knitr")
 library(corrplot)
+library(knitr)
 
 # mtcars 데이터셋 로드
 data(mtcars)
@@ -28,28 +30,20 @@ summary(model_full)
 # 모델 출력
 print(model_full)
 
-# 하나씩 변수를 제거하면서 모델을 생성
+# disp 변수를 제거한 모델 생성
 model_no_disp <- lm(mpg ~ hp + wt, data = input)
 summary(model_no_disp)
 print(model_no_disp)
 
-model_no_hp <- lm(mpg ~ disp + wt, data = input)
-summary(model_no_hp)
-print(model_no_hp)
+# 요약 결과를 데이터 프레임으로 변환
+summary_no_disp <- summary(model_no_disp)
 
-model_no_wt <- lm(mpg ~ disp + hp, data = input)
-summary(model_no_wt)
-print(model_no_wt)
+# 회귀 계수를 데이터 프레임으로 변환
+coefficients_no_disp <- as.data.frame(summary_no_disp$coefficients)
+colnames(coefficients_no_disp) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
 
-# 두 개의 변수만 사용하여 모델을 생성
-model_disp_hp <- lm(mpg ~ disp + hp, data = input)
-summary(model_disp_hp)
-print(model_disp_hp)
+# 결과 출력
+print(coefficients_no_disp)
 
-model_disp_wt <- lm(mpg ~ disp + wt, data = input)
-summary(model_disp_wt)
-print(model_disp_wt)
-
-model_hp_wt <- lm(mpg ~ hp + wt, data = input)
-summary(model_hp_wt)
-print(model_hp_wt)
+# Disp 변수를 제거한 모델의 요약 결과를 표로 출력
+kable(coefficients_no_disp, caption = "Disp 변수를 제거한 모델의 회귀 계수")
