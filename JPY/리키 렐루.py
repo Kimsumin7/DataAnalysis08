@@ -1,7 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug  7 16:42:23 2024
+import numpy as np
+import matplotlib.pyplot as plt
 
-@author: 409-23
-"""
+a = 0.1
 
+def leaky_relu(x):
+    return np.maximum(a * x, x)
+
+x = np.arange(-6.0, 6.0, 0.1)
+y = leaky_relu(x)
+
+plt.plot(x,y)
+plt.plot([0,0], [5.0, 0.0], ':')
+plt.title('Leaky ReLU Function')
+plt.show()
